@@ -7,7 +7,7 @@ include_once("../configuracion.php");
 <?php
 
 include_once("estructura/cabecera.php");
-// include_once("../../control/control_eje3.php");
+// include_once("../../control/control_eje3.php"s);
 
 ?>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
