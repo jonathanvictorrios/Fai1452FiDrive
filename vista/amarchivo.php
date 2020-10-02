@@ -10,15 +10,30 @@ include_once("estructura/cabecera.php");
 // include_once("../../control/contrasaasdssdasdol_ejsdfsdfse3.php");
 
 ?>
+<!-- <script type="text/javascript">
+		$(document).ready(function(){
+			$('#descripcionArchivo').Editor();
+
+			$('#descripcionArchivo').Editor('setText', ['<p style="color:red;">Hola</p>']);
+
+			$('#btn_eje4').click(function(e){
+				e.preventDefault();
+				$('#descripcionArchivo').text($('#descripcionArchivo').Editor('getText'));
+				$('#formAMarchivo').submit();				
+			});
+		});	
+	</script> -->
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
+
 </div>
+
 <div id="contenido" style="height: 720px; width: 89%;margin-left:10.5%;" >
 
 
 <hr>
 
 
-<form id="formulario" name="formulario" method="post" action="amaccion.php" enctype="multipart/formdata">
+<form id="formAMarchivo" name="formAMarchivo" method="post" action="amaccion.php" enctype="multipart/formdata" data-toggle="validator">
 <div class="row">
         
         <div class="col-md-3 mb-2">
@@ -34,7 +49,7 @@ include_once("estructura/cabecera.php");
 
         <div class="col-md-3 mb-2">
             <label for="nombre" class="control-label">Descripcion</label>
-            <textarea class="form-control is-invalid" id="descripcionArchivo" placeholder="Ingrese descripcion del archivo a subir" required></textarea>
+            <textarea class="form-control is-invalid" id="descripcionArchivo" name="descripcionArchivo" placeholder="Ingrese descripcion del archivo a subir" required></textarea>
             <div class="invalid-feedback">
 
             </div>
