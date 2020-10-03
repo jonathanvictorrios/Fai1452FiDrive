@@ -22,6 +22,11 @@
                 Eliminar Archivo
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="../vista/probando.php">
+                Probando
+            </a>
+        </li>
         
     </ul>
 
