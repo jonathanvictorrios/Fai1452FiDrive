@@ -1,26 +1,27 @@
 <?php
 include_once("estructura/cabecera.php");
 include_once("../configuracion.php");
+include_once("../control/control_contenido.php");
 ?>
 
 
 <?php
+$datos = data_submitted();
+$obj = new control_contenido();
+$arregloDatos=$obj->obtenerNombreArchivo($datos);
 
-include_once("estructura/cabecera.php");
-// include_once("../../control/control_eje3.php"s);
-
+$nombreArchivo=$arregloDatos["nombreArchivo"];
 ?>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
-</div>
-<div id="contenido" style="height: 720px; width: 89%;margin-left:10.5%;" >
+
     <hr>
 
 
-    <form id="formulario" name="formulario" method="post" action="amaccion.php" enctype="multipart/formdata">
+<form id="formEliminar" name="formEliminar" method="post" action="eliminararchivo.php" enctype="multipart/formdata" data-toggle="validator">
     <div class="row">    
         <div class="col-md-3 mb-2">
-            <label for="nombreArchivoCompartir" class="control-label">Nombre del archivo compartido:</label>
-            <span class="label label-info bg-info">1234.png</span>
+            <label for="nombreArchivoCompartir" class="control-label">Nombre del archivo a eliminar:</label>
+            <span class="label label-info bg-info"><?php echo $nombreArchivo ?></span>
             <div class="invalid-feedback">
             </div>
         </div>  
@@ -29,7 +30,7 @@ include_once("estructura/cabecera.php");
 
         <div class="col-md-3 mb-2">
             <label for="motivoEliminar" class="control-label">Motivo</label>
-            <textarea class="form-control" id="motivoEliminar" placeholder="Ingrese el motivo por el cual desea eliminar el archivo compartido" required></textarea>
+            <textarea class="form-control" id="motivoEliminar" name="motivoEliminar" placeholder="Ingrese el motivo por el cual desea eliminar el archivo compartido" required></textarea>
             <div class="invalid-feedback">
 
             </div>
@@ -38,7 +39,7 @@ include_once("estructura/cabecera.php");
     <div class="row">
         <div class="col-md-3 mb-2">
             <label for="usuarioCarga" class="control-label">Usuario</label>
-            <select class="custom-select my-1 mr-sm-2" id="usuarioCarga" name="usuarioCarga">
+            <select class="custom-select my-1 mr-sm-2" id="usuarioCarga" name="usuarioCarga" required>
                 <option selected>Elija una opcion...</option>
                 <option value="1">admin</option>
                 <option value="2">visitante</option>
@@ -60,7 +61,7 @@ include_once("estructura/cabecera.php");
     </div>
     
 
-    </form>    
+</form>    
 </div>
 
 

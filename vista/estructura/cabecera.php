@@ -20,7 +20,7 @@ include_once("../configuracion.php");
 </header>
 </head>
 <body>
-<div class="bg-dark"style="height: 80px; width: 120%; "> <h1 class="text-white">Trabajo Practico Entregable, Parte 2</h1> </div>
+<div class="bg-dark text-center" style="height: 60px"> <h1 class="text-white">Trabajo Practico Entregable, Parte 3</h1> </div>
    
 <?php  
 // include_once("../../configuracion.php");

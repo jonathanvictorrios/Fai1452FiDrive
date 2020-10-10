@@ -1,8 +1,16 @@
 <?php
 include_once("estructura/cabecera.php");
 include_once("../configuracion.php");
+include_once("../control/control_contenido.php");
 ?>
 
+<?php
+$datos = data_submitted();
+$obj = new control_contenido();
+$arregloDatos=$obj->obtenerNombreArchivo($datos);
+
+$nombreArchivo=$arregloDatos["nombreArchivo"];
+?>
 
 <?php
 
@@ -11,17 +19,19 @@ include_once("estructura/cabecera.php");
 
 ?>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
-</div>
-<div id="contenido" style="height: 720px; width: 89%;margin-left:10.5%;" >
+
+
     <hr>
 
 
     <form id="formulario" name="formulario" method="post" action="amaccion.php" enctype="multipart/formdata">
     <div class="row">    
-        <div class="col-md-3 mb-2">
-            <label for="nombreArchivoCompartir" class="control-label">Nombre del archivo compartido:</label>
-            <span class="label label-info bg-info">1234.png</span>
+    <div class="col-md-3 mb-2">
+        <label for="nombreArchivo" class="control-label">Nombre del archivo compartido</label>
+            <input class="form-control " id="nombreArchivo" name="nombreArchivo" placeholder="Ingrese nombre del archivo" required
+            type="text" value="<?php echo $nombreArchivo ?>">
             <div class="invalid-feedback">
+                    
             </div>
         </div>  
     </div>
