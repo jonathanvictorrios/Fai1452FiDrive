@@ -34,15 +34,18 @@ function verificarContraseña(contraseña){
 
 </script>
 
-<form id="formComp" name="formComp" method="post" action="amaccion.php" enctype="multipart/formdata" data-toggle="validator">
+<form id="formComp" name="formComp" method="post" action="accionCompartir.php" enctype="multipart/formdata" data-toggle="validator">
     <div class="row">    
         <div class="col-md-3 mb-2">
             <!-- <label for="nombreArchivoCompartir" class="control-label">Nombre del archivo compartido:</label>
             <span class="label label-info bg-info"><?php echo $nombreArchivo ?></span> -->
 
                 <label for="nombreArchivo" class="control-label">Nombre del archivo</label>
-                <input class="form-control " id="nombreArchivoACom" name="nombreArchivoACom" placeholder="Ingrese nombre del archivo" required
-                type="text" value="<?php echo $nombreArchivo ?>">
+                <div class="alert alert-primary" role="alert">
+                <?php echo $nombreArchivo ?>
+                </div>
+                <input class="form-control " id="nombreArchivo" name="nombreArchivo" placeholder="Ingrese nombre del archivo" required
+                type="hidden" value="<?php echo $nombreArchivo ?>">
 
      
             
@@ -75,7 +78,7 @@ function verificarContraseña(contraseña){
     <div class="row">
         <div class="col-md-3 mb-2">
             <label for="usuarioCarga" class="control-label">Usuario</label>
-            <select class="custom-select my-1 mr-sm-2" id="usuarioCargaCom" name="usuarioCargaCom" required>
+            <select class="custom-select my-1 mr-sm-2" id="usuarioCarga" name="usuarioCarga" required>
                 <option value="">Elija una opcion...</option>
                 <option value="1">admin</option>
                 <option value="2">visitante</option>

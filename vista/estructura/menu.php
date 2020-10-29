@@ -31,7 +31,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="../vista/compartidos.php">
-                            compartir php
+                            compartidos php
                         </a>
                     </li>
                     

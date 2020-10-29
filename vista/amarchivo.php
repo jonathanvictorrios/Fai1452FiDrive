@@ -10,6 +10,7 @@ $datos = data_submitted();
 $obj = new control_contenido();
 $arregloDatos=$obj->obtenerNombreArchivo($datos);
 $nombreArchivo=$arregloDatos["nombreArchivo"];
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
@@ -56,29 +57,29 @@ function obtenerExtensionArchivo(CadenaArchivo){
     return res;
     }
 
-function modificarAccion(){
-    campoClave=document.getElementById("claveArchivo").value;
-    if(campoClave==0){
-        document.getElementById("formAMarchivo").action = "alta.php";
-    }else{
-        document.getElementById("formAMarchivo").action = "modificar.php";
-    }
-}
+// function modificarAccion(){
+//     campoClave=document.getElementById("claveArchivo").value;
+//     if(campoClave==0){
+//         document.getElementById("formAMarchivo").action = "alta.php";
+//     }else{
+//         document.getElementById("formAMarchivo").action = "modificar.php";
+//     }
+// }
 
 </script>
 
 
 
 
-<form id="formAMarchivo" name="formAMarchivo" method="post" action="amaccion.php" enctype="multipart/formdata" data-toggle="validator">
+<form id="formAMarchivo" name="formAMarchivo" method="POST" action="<?php echo $datos["tipoAccion"]?>" data-toggle="validator" enctype="multipart/form-data" >
     <div class="row">
         
         <div class="col-md-3 mb-2">
         <label for="nombreArchivo" class="control-label">Nombre del archivo</label>
             <input class="form-control " id="nombreArchivo" name="nombreArchivo" placeholder="Ingrese nombre del archivo" required
             type="text" value="<?php echo $nombreArchivo ?>">
-            <input type="file" class="form-control" id="archivoSubid" name ="archivoSubido" onchange="sugerirIcono();">
-
+            <input type="file" class="form-control" id="archivoSubid" name="archivoSubido" onchange="sugerirIcono();" required>
+            <input type="hidden" id="nombreOriginalArchivo" name="nombreOriginalArchivo" value="<?php echo $nombreArchivo ?>">
         </div>  
     </div>
     
@@ -102,9 +103,9 @@ function modificarAccion(){
             <label for="usuarioCarga" class="control-label">Usuario</label>
             <select class="custom-select my-1 mr-sm-2" id="usuarioCarga" name="usuarioCarga" required>
                 <option value="" >elija una opcion....</option>
-                <option value="admin">admin</option>
-                <option value="visitante">visitante</option>
-                <option value="usted">usted</option>
+                <option value="1">admin</option>
+                <option value="2">visitante</option>
+                <option value="3">usted</option>
             </select>
             
         </div>  

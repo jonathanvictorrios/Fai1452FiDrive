@@ -5,9 +5,37 @@ class control_contenido
 
     public function obtenerArchivos()
     {
-        $directorio = "../archivos/";
-        $archivos = scandir($directorio, 1);
+        $objArchivoCargado=new archivocargado();
+        $archivos=$objArchivoCargado->listar();
+        // $directorio = "../archivos/";
+        // $archivos = scandir($directorio, 1);
         return $archivos;
+    }
+    public function obtenerArchivosCompartidos(){
+        $objArchivoCargado=new archivocargado();
+        $listaArchivosCargadosBaseDatos= $objArchivoCargado->listar();
+        $objArchivoCargadoEstado=new archivocargadoestado();
+        
+        $arregloResultante=array();
+        foreach($listaArchivosCargadosBaseDatos as $unArchivoCargado){
+            $idArchivoCargado=$unArchivoCargado->getIdarchivocargado();
+            $ultimoEstadoArchivo=$objArchivoCargadoEstado->obtenerUltimoEstado("idarchivocargado='".$idArchivoCargado."'");
+            if($ultimoEstadoArchivo->getEstadotipo()->getEtdescripcion()=="Compartido"){
+                array_push($arregloResultante,$unArchivoCargado);
+            }
+            
+        }
+        
+        return $arregloResultante;
+    }
+    public function subirArchivo($datos){
+        $nombreArchivo=$_FILES['archivoSubido']['name'];
+        // print_r($archivo);
+        $dir = "../archivos/";
+        copy($_FILES['archivoSubido']['tmp_name'], $dir . $nombreArchivo);
+        // $fArchivoaCrear=fopen($dir.$archivo, "w");
+        // fwrite($fArchivoaCrear, $archivo);
+        // fclose($fArchivoaCrear);
     }
     public function crearCarpeta($datos){
         $nombreNuevaCarpeta="../archivos/".$datos["nombreNuevaCarpeta"];
@@ -74,6 +102,7 @@ class control_contenido
             
         
     }
+
         
         
 }

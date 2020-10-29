@@ -1,0 +1,6 @@
+sticky lo deja fijo arriba por ejemplo
+nav class es toda la parte de arriba y ahi le doy todos los estilos que quiero
+
+el contenedor (en este caso container-fluid) dice todo lo q va a contener nuestro sitio , y edentor de ello vamos a hacer filas
+
+row es cada una de las filas que va a tener nuestro contenedor

@@ -15,7 +15,7 @@ $nombreArchivo=$arregloDatos["nombreArchivo"];
 <?php
 
 include_once("estructura/cabecera.php");
-// include_once("../../control/control_eje3.php"s);
+
 
 ?>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
@@ -24,12 +24,15 @@ include_once("estructura/cabecera.php");
     <hr>
 
 
-    <form id="formulario" name="formulario" method="post" action="amaccion.php" enctype="multipart/formdata">
+    <form id="formulario" name="formulario" method="post" action="accionEliminarArchivoCompartido.php" enctype="multipart/formdata">
     <div class="row">    
     <div class="col-md-3 mb-2">
         <label for="nombreArchivo" class="control-label">Nombre del archivo compartido</label>
+            <div class="alert alert-primary" role="alert">
+                <?php echo $nombreArchivo ?>
+                </div>
             <input class="form-control " id="nombreArchivo" name="nombreArchivo" placeholder="Ingrese nombre del archivo" required
-            type="text" value="<?php echo $nombreArchivo ?>">
+            type="hidden" value="<?php echo $nombreArchivo ?>">
             <div class="invalid-feedback">
                     
             </div>
@@ -39,6 +42,8 @@ include_once("estructura/cabecera.php");
         <div class="col-md-3 mb-2">
             <label for="nombreArchivoCompartir" class="control-label">Cantidad de veces que se compartio:</label>
             <span class="label label-info bg-info">12</span>
+            <input class="form-control " id="nombreArchivo" name="nombreArchivo" placeholder="Ingrese nombre del archivo" required
+                type="hidden" value="<?php echo $nombreArchivo ?>">
             <div class="invalid-feedback">
             </div>
         </div>  
@@ -57,7 +62,7 @@ include_once("estructura/cabecera.php");
         <div class="col-md-3 mb-2">
             <label for="usuarioCarga" class="control-label">Usuario</label>
             <select class="custom-select my-1 mr-sm-2" id="usuarioCarga" name="usuarioCarga">
-                <option selected>Elija una opcion...</option>
+                <option value="">Elija una opcion...</option>
                 <option value="1">admin</option>
                 <option value="2">visitante</option>
                 <option value="3">usted</option>
