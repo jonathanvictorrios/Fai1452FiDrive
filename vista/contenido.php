@@ -1,16 +1,20 @@
 <?php
 include_once("estructura/cabecera.php");
 include_once("../configuracion.php");
-include_once("../control/control_contenido.php");
+
 ?>
 
 
 
 <?php
-$obj = new control_contenido();
-$arreglo = $obj->obtenerArchivos();
-//print_r($arreglo);
 
+$verificarSession=$objSession->validar();
+// Verifico si ya existe una sesion activa , esto lo hago por si el usuario
+// entra de vuelta a login.php no muestro el formulario de login
+    
+if($verificarSession){  
+    $obj = new control_contenido();
+    $arreglo = $obj->obtenerArchivos();
 ?>
         <hr>
         <div class="row">
@@ -51,26 +55,9 @@ $arreglo = $obj->obtenerArchivos();
                                     </form>
                                 </div>-->
                             
-                        </div>
-                    
-                    
-                    
-                    
-                    
-                        
-                        ";
-                        
-
-                        
-                    
+                        </div>";
                 }
-
                 ?>
-
-                
-                
-                
-        
             </div>
             <form name="formSubirArchivo" id="formSubirArchivo" method="POST" action="amarchivo.php">
                 <div class="col-sm-6">
@@ -81,24 +68,13 @@ $arreglo = $obj->obtenerArchivos();
                 </form>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
-
+}
+else{
+    //si no hay una session activa redirecciono al usuario para que se loguee o se registre
+    header('Location: login.php');
+    exit();
+}
 include_once("estructura/pie.php");
 ?>
 

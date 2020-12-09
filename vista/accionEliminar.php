@@ -6,25 +6,35 @@ include_once("../control/control_contenido.php");
 ?>
 
 <?php
-$datos = data_submitted();
-$objAbm=new AbmArchivoCargado();
-$resp=$objAbm->baja($datos);
-?>
-<hr>
+$verificarSession=$objSession->validar();
+// Verifico si ya existe una sesion activa , esto lo hago por si el usuario
+// entra de vuelta a login.php no muestro el formulario de login
+    
+if($verificarSession){ 
+    $datos = data_submitted();
+    $objAbm=new AbmArchivoCargado();
+    $resp=$objAbm->baja($datos);
+    ?>
+    <hr>
+    <?php
+    if($resp){
+        echo '<div class="alert alert-primary" role="alert">
+        Se cambio el estado
+      </div>';
+    }
+    else{
+        echo '<div class="alert alert-danger" role="alert">
+        no se pudo cambiar el estado
+      </div>';
+    }
+    ?>
+
 <?php
-if($resp){
-    echo '<div class="alert alert-primary" role="alert">
-    Se cambio el estado
-  </div>';
 }
 else{
-    echo '<div class="alert alert-danger" role="alert">
-    no se pudo cambiar el estado
-  </div>';
+  //si no hay una session activa redirecciono al usuario para que se loguee o se registre
+  header('Location: login.php');
+  exit();
 }
-?>
-
-<?php
-
 include_once("estructura/pie.php");
 ?>

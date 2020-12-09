@@ -9,9 +9,9 @@ class AbmArchivoCargado{
        $obj = null;
        $usuario=new usuario();
        $idUsuarioCargo=$param['usuarioCarga'];
-       
+       //echo "El id de usuario es:".$idUsuarioCargo;
        $usuarioObtenido=$usuario->obtenerUsuarioPorId($idUsuarioCargo);
-       
+       //print_r($usuarioObtenido);
        $obj = new archivocargado();
 
        switch($tipoOperacion){
@@ -56,7 +56,8 @@ class AbmArchivoCargado{
         $elObjtArchivoCargado = $this->cargarObjeto($param,"alta");
         if ($elObjtArchivoCargado!=null and $elObjtArchivoCargado->insertar()){
             $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
-            $objAbmArchivoCargadoEstado->alta($param,$elObjtArchivoCargado , "alta");
+            //$objAbmArchivoCargadoEstado->alta($param,$elObjtArchivoCargado , "alta");
+            $objAbmArchivoCargadoEstado->alta($elObjtArchivoCargado , "alta");
             $resp = true;
         }
         else{
@@ -81,7 +82,7 @@ class AbmArchivoCargado{
             if($elObjtArchivoCargado!=null && $objArchivoCargadoBaseDatos!=null){
                 
                 $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
-                $objAbmArchivoCargadoEstado->alta($param,$objArchivoCargadoBaseDatos,"baja");
+                $objAbmArchivoCargadoEstado->alta($objArchivoCargadoBaseDatos,"baja");
                 $resp = true;
             }
 
@@ -123,9 +124,11 @@ class AbmArchivoCargado{
             $objArchivoCargadoBaseDatos=$elObjtArchivoCargado->buscar("acnombre='".$nombreArchivo."' and idusuario='".$idUsuario."'");
 
             if($elObjtArchivoCargado!=null && $objArchivoCargadoBaseDatos!=null){
-                
+                $elObjtArchivoCargado->setAccantidaddescarga($param["cantDiasCompartir"]);
+                $elObjtArchivoCargado->setAccantidadusada($param["cantDescargasPosibles"]);
+                $elObjtArchivoCargado->modificar();
                 $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
-                $objAbmArchivoCargadoEstado->alta($param,$objArchivoCargadoBaseDatos,"compartir");
+                $objAbmArchivoCargadoEstado->alta($objArchivoCargadoBaseDatos,"compartir");
                 $resp = true;
             }
             
@@ -148,7 +151,7 @@ class AbmArchivoCargado{
         if($elObjtArchivoCargado!=null && $objArchivoCargadoBaseDatos!=null){
             
             $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
-            $objAbmArchivoCargadoEstado->alta($param,$objArchivoCargadoBaseDatos,"dejarCompartir");
+            $objAbmArchivoCargadoEstado->alta($objArchivoCargadoBaseDatos,"dejarCompartir");
             $resp = true;
         }
         

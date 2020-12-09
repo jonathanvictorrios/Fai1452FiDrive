@@ -1,25 +1,7 @@
-<?php
-include_once("estructura/cabecera.php");
-include_once("../configuracion.php");
-?>
-
-<link rel="stylesheet" type="text/css" href="../css/bootstrap/4.5.2/style.css" media="screen" />
-
-
-<hr>
-
-
-   
-    
-
-
-</div>
-
-
-<!-- </div> -->
-
+<!-- Este index me direcciona a la pagina de login , 
+para que cada vez que entra un usuario necesite loguearse -->
 
 <?php
-
-include_once("estructura/pie.php");
+header('Location: login.php');
 ?>
+

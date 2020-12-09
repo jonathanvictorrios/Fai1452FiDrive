@@ -10,4 +10,7 @@ function mostrar(id) {
 
 
 }
+function mostrarCartelError(){
+    document.getElementById("cartelError").style.display="block";
+}
 

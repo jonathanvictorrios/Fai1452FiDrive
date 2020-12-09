@@ -8,7 +8,7 @@ class AbmArchivoCargadoEstado{
      * @param array $param
      * @return Tabla
      */
-    private function cargarObjeto($param,$objArchivoCargado,$estado){
+    private function cargarObjeto($objArchivoCargado,$estado){
        
        $obj = null;
 
@@ -24,7 +24,7 @@ class AbmArchivoCargadoEstado{
     }
 
 
-    public function alta($param,$objArchivoCargado , $infoEstado){
+    public function alta($objArchivoCargado , $infoEstado){
         
         $resp = false;
         $estado=new estadotipos();
@@ -43,7 +43,7 @@ class AbmArchivoCargadoEstado{
                 break;
         }
         $idArchivoCargado=$objArchivoCargado->getIdarchivocargado();
-        $elObjtArchivoCargadoEstado = $this->cargarObjeto($param,$objArchivoCargado,$estado);
+        $elObjtArchivoCargadoEstado = $this->cargarObjeto($objArchivoCargado,$estado);
         
         if ($elObjtArchivoCargadoEstado!=null and $elObjtArchivoCargadoEstado->insertar()){
             $resp = true;

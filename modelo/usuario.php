@@ -1,5 +1,5 @@
 <?php 
-class usuario {
+class usuario{
     private $idusuario;
     private $usnombre;
     private $usapellido;
@@ -20,14 +20,14 @@ class usuario {
         $this->colArchivosCargados="";
         $this->mensajeoperacion="";
     }
-    public function setear($idUsuario , $usnombre , $usApellido , $usLogin , $usClave , $usActivo , $unaColArchivosCargados)    {
+    public function setear($idUsuario , $nombre , $apellido , $nombreUsuario , $usClave)    {
         $this->setIdusuario($idUsuario);
-        $this->setUsnombre($usnombre);
-        $this->setUsapellido($usApellido);
-        $this->setUslogin($usLogin);
+        $this->setUsnombre($nombre);
+        $this->setUsapellido($apellido);
+        $this->setUslogin($nombreUsuario);
         $this->setUsclave($usClave);
-        $this->setUsactivo($usActivo);
-        $this->setColArchivosCargados($unaColArchivosCargados);
+        $this->setUsactivo(1);
+        $this->setColArchivosCargados(array());
     }
     public function getIdusuario(){
 		return $this->idusuario;
@@ -92,7 +92,59 @@ class usuario {
 		$this->mensajeoperacion = $mensajeoperacion;
     }
     
+    public function insertar(){
+        $resp = false;
+        $base=new BaseDatos();
+        $sql="INSERT INTO usuario(usnombre,usapellido,uslogin,usclave,usactivo)  
+        VALUES('".$this->getUsnombre()."','".$this->getUsapellido()."','".$this->getUslogin()."','".$this->getUsclave()."','".$this->getUsactivo()."');";
+        if ($base->Iniciar()) {
+            if ($elid = $base->Ejecutar($sql)) {
+                $this->setIdusuario($elid);
+                $resp=true;
+                //$resp = $elid;
+            } else {
+                $this->setmensajeoperacion("usuario->insertar: ".$base->getError());
+            }
+        } else {
+            $this->setmensajeoperacion("usuario->insertar: ".$base->getError());
+        }
+        return $resp;
+    }
+    
+    public static function listar($parametro=""){
+        $i=0;
+        $arreglo = array();
+        $base=new BaseDatos();
+        $sql="SELECT * FROM usuario ";
+        if ($parametro!="") {
+            $sql.='WHERE '.$parametro;
+        }
+        
+        $res = $base->Ejecutar($sql);
+        
+        if($res>-1){
+            
+            if($res>0){
+                
+                while ($row = $base->Registro()){
+                    
+                    $objUsuario= new usuario();
+                    $objUsuario->setIdusuario($row['idusuario']);
+                    $objUsuario->cargar();
+                    
+                    array_push($arreglo, $objUsuario);
+                }
+               
+            }
+            
+            
+        } else {
+            
+            $this->setmensajeoperacion("usuario->listar: ".$base->getError());
+        }
 
+        return $arreglo;
+    }
     public function cargar(){
         $resp = false;
         $base=new BaseDatos();
@@ -101,10 +153,12 @@ class usuario {
             $res = $base->Ejecutar($sql);
             if($res>-1){
                 if($res>0){
+                    
                     $row = $base->Registro();
                     $objArchivoCargado=new archivocargado();
-                    $colCargados=$objArchivoCargado->listar("idusuario=".$this->getIdusuario());
-                    $this->setear($row['idusuario'], $row['usnombre'], $row['usapellido'], $row['uslogin'], $row['usclave'], $row['usactivo'],$colCargados);
+                    
+                    $this->setear($row['idusuario'], $row['usnombre'], $row['usapellido'], $row['uslogin'], $row['usclave'], $row['usactivo'],array());
+                    
                 }
             }
         } else {
@@ -113,43 +167,16 @@ class usuario {
         return $resp;
      
     }
-    public static function listar($parametro=""){
-        
-        $arreglo = array();
-        $base=new BaseDatos();
-        $sql="SELECT * FROM usuario ";
-        if ($parametro!="") {
-            $sql.='WHERE '.$parametro;
-        }
-        $res = $base->Ejecutar($sql);
-        if($res>-1){
-            
-            if($res>0){
-                
-                while ($row = $base->Registro()){
-                    $obj= new usuario();
-                    // $objArchivoCargado=new archivocargado();
-                    // $colCargados=$objArchivoCargado->listar("idusuario=".$row['idusuario']);
-                    $obj->setear($row['idusuario'], $row['usnombre'], $row['usapellido'], $row['uslogin'], $row['usclave'], $row['usactivo'] , array());
-                    array_push($arreglo, $obj);
-                }
-               
-            }
-            
-            
-        } else {
-            
-            //$this->setmensajeoperacion("Auto->listar: ".$base->getError());
-        }
-        return $arreglo;
-    }
+    
     public function obtenerUsuarioPorId($unId){
+        
         $resp="";
         $listaUsuarios=$this->listar();
         $cantUsuarios=count($listaUsuarios);
         $i=0;
         $encontrado=false;
         while($i<$cantUsuarios && $encontrado==false){    
+            
             if($listaUsuarios[$i]->getIdusuario()==$unId){
                 $resp=$listaUsuarios[$i];
                 $encontrado=true;

@@ -6,14 +6,28 @@ class control_contenido
     public function obtenerArchivos()
     {
         $objArchivoCargado=new archivocargado();
-        $archivos=$objArchivoCargado->listar();
+        $nombreUsuario=$_SESSION['uslogin'];
+        $objUsuario=new usuario();
+        $obtenerUsuario=$objUsuario->listar("uslogin='".$nombreUsuario."'");
+        $usuarioCargo=$obtenerUsuario[0];
+        $consulta="idusuario='".$usuarioCargo->getIdusuario()."'";
+        $archivos=$objArchivoCargado->listar($consulta);
         // $directorio = "../archivos/";
         // $archivos = scandir($directorio, 1);
         return $archivos;
     }
     public function obtenerArchivosCompartidos(){
         $objArchivoCargado=new archivocargado();
-        $listaArchivosCargadosBaseDatos= $objArchivoCargado->listar();
+
+        $nombreUsuario=$_SESSION['uslogin'];
+        $objUsuario=new usuario();
+        $obtenerUsuario=$objUsuario->listar("uslogin='".$nombreUsuario."'");
+        $usuarioCargo=$obtenerUsuario[0];
+        $consulta="idusuario='".$usuarioCargo->getIdusuario()."'";
+
+
+
+        $listaArchivosCargadosBaseDatos= $objArchivoCargado->listar($consulta);
         $objArchivoCargadoEstado=new archivocargadoestado();
         
         $arregloResultante=array();

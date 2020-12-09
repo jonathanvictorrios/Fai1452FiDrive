@@ -185,10 +185,13 @@ class archivocargado {
             if($res>0){
                 
                 while ($row = $base->Registro()){
+                    
                     $obj= new archivocargado();
                     $usuario=new usuario();
+                    
                     // $usuario->setidusuario($row['idusuario']);
                     $usuarioObtenido=$usuario->obtenerUsuarioPorId($row['idusuario']);
+                    //echo $usuarioObtenido;
                     //$usuario->cargar();
                     $obj->setear($row['idarchivocargado'], $row['acnombre'], $row['acdescripcion'], $row['acicono'], $usuarioObtenido ,$row['aclinkacceso'], $row['accantidaddescarga'], $row['accantidadusada'], $row['acfechainiciocompartir']
                     , $row['acefechafincompartir'] , $row['acprotegidoclave'] ) ;
@@ -269,9 +272,7 @@ class archivocargado {
     }
     
     
-    public function compartir(){
-
-    }
+    
 }
 
 

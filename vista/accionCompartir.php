@@ -6,25 +6,35 @@ include_once("../control/control_contenido.php");
 ?>
 
 <?php
-$datos = data_submitted();
-$objAbm=new AbmArchivoCargado();
-$resp=$objAbm->compartir($datos);
-?>
-<hr>
+$verificarSession=$objSession->validar();
+// Verifico si ya existe una sesion activa , esto lo hago por si el usuario
+// entra de vuelta a login.php no muestro el formulario de login
+    
+if($verificarSession){  
+    $datos = data_submitted();
+    $objAbm=new AbmArchivoCargado();
+    $resp=$objAbm->compartir($datos);
+    ?>
+    <hr>
+    <?php
+    if($resp){
+        echo '<div class="alert alert-primary" role="alert">
+        Se pudo compartir el archivo con exito!!!
+      </div>';
+    }
+    else{
+        echo '<div class="alert alert-danger" role="alert">
+        no se pudo compartir el archivo
+      </div>';
+    }
+    ?>
+
 <?php
-if($resp){
-    echo '<div class="alert alert-primary" role="alert">
-    Se pudo compartir el archivo con exito!!!
-  </div>';
 }
 else{
-    echo '<div class="alert alert-danger" role="alert">
-    no se pudo compartir el archivo
-  </div>';
+  //si no hay una session activa redirecciono al usuario para que se loguee o se registre
+  header('Location: login.php');
+  exit();
 }
-?>
-
-<?php
-
 include_once("estructura/pie.php");
 ?>
