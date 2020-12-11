@@ -54,7 +54,6 @@ public function verificarRol($nombreRol){
 		}
 	}
 	return $encontrado;
-
 }
 
 public function logout(){

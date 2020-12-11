@@ -157,6 +157,7 @@ class archivocargado {
                     $obj= new archivocargado();
                     $usuario=new usuario();
                     $usuario->setidusuario($row['idusuario']);
+                    
                     //$usuario->cargar();
                     $obj->setear($row['idarchivocargado'], $row['acnombre'], $row['acdescripcion'], $row['acicono'], $usuario ,$row['aclinkacceso'], $row['accantidaddescarga'], $row['accantidadusada'], $row['acfechainiciocompartir']
                     , $row['acefechafincompartir'] , $row['acprotegidoclave'] ) ;
@@ -255,10 +256,11 @@ class archivocargado {
         $base=new BaseDatos();
         $sql="UPDATE archivocargado SET acnombre='".$this->getAcnombre()."', acdescripcion=
         '".$this->getAcdescripcion()."' , acicono='".$this->getAcicono()."' , aclinkacceso=
-        '".$this->getAclinkacceso()."' , accantidaddescarga='".$this->getAccantidaddescarga().
-        "' , accantidadusada='".$this->getAccantidadusada()."' , acfechainiciocompartir=
-        '".$this->getAcfechainiciocompartir()."' , acefechafincompartir='".$this->getAcefechafincompartir().
-        "' , acprotegidoclave='".$this->getAcprotegidoclave()."' WHERE idarchivocargado=".$this->getIdarchivocargado();
+        '".$this->getAclinkacceso()."', accantidaddescarga='".$this->getAccantidaddescarga().
+        "' , accantidadusada='".$this->getAccantidadusada()."', acfechainiciocompartir=
+        '".$this->getAcfechainiciocompartir()."', acefechafincompartir='".$this->getAcefechafincompartir().
+        "' , acprotegidoclave='".$this->getAcprotegidoclave()."' WHERE idarchivocargado='".$this->getIdarchivocargado()."'";
+        
         if ($base->Iniciar()) {
             if ($base->Ejecutar($sql)) {
                 $resp = true;

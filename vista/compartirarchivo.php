@@ -127,7 +127,7 @@ if($verificarSession){
         <div class="row">    
             <div class="col-md-3 mb-2">
                 <label for="nombreArchivoCompartir" class="control-label">Link de compartir generado:</label>
-                <span id="LinkDescargaGenerado" class="label label-info bg-info">asdjasdkjahskdjahskjdhajkshd</span>
+                <span id="LinkDescargaGenerado" class="label label-info bg-info"></span>
                 <div class="invalid-feedback">
                 </div>
             </div>  

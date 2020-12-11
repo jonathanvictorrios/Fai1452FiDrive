@@ -41,7 +41,7 @@ include_once("../configuracion.php");
                         
                       
                       <input class="form-control text-center" id="contraseña" name="contraseñaUsuario" placeholder="Ingrese contraseña" required
-                        type="password">
+                        type="password" >
 
                     </div>
                     

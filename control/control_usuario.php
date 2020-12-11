@@ -26,7 +26,6 @@ class control_usuario
     public function verificarPass($pass,$passEncriptada){
         
         $res=password_verify($pass, $passEncriptada);
-        
         return $res;
     }
 

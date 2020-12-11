@@ -124,9 +124,19 @@ class AbmArchivoCargado{
             $objArchivoCargadoBaseDatos=$elObjtArchivoCargado->buscar("acnombre='".$nombreArchivo."' and idusuario='".$idUsuario."'");
 
             if($elObjtArchivoCargado!=null && $objArchivoCargadoBaseDatos!=null){
-                $elObjtArchivoCargado->setAccantidaddescarga($param["cantDiasCompartir"]);
-                $elObjtArchivoCargado->setAccantidadusada($param["cantDescargasPosibles"]);
-                $elObjtArchivoCargado->modificar();
+                $objArchivoCargadoBaseDatos->setAccantidaddescarga($param["cantDiasCompartir"]);
+                $objArchivoCargadoBaseDatos->setAccantidadusada($param["cantDescargasPosibles"]);
+                
+                //para registrar fecha de inicio compartir
+                $tz_object = new DateTimeZone('America/Argentina/Ushuaia');
+                $objfecha=new DateTime();
+                $objfecha->setTimezone($tz_object);
+                $fechaIngreso=$objfecha->format('Y-m-d H:i:s');
+                $objArchivoCargadoBaseDatos->setAcfechainiciocompartir($fechaIngreso);
+                $objArchivoCargadoBaseDatos->modificar();
+                //----------------------------------------
+                
+                
                 $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
                 $objAbmArchivoCargadoEstado->alta($objArchivoCargadoBaseDatos,"compartir");
                 $resp = true;
@@ -150,6 +160,16 @@ class AbmArchivoCargado{
 
         if($elObjtArchivoCargado!=null && $objArchivoCargadoBaseDatos!=null){
             
+            //para registrar fecha de fin compartir
+            $tz_object = new DateTimeZone('America/Argentina/Ushuaia');
+            $objfecha=new DateTime();
+            $objfecha->setTimezone($tz_object);
+            $fechaFin=$objfecha->format('Y-m-d H:i:s');
+            $objArchivoCargadoBaseDatos->setAcefechafincompartir($fechaFin);
+            $objArchivoCargadoBaseDatos->modificar();
+
+            //----------------------------------------
+
             $objAbmArchivoCargadoEstado=new AbmArchivoCargadoEstado();
             $objAbmArchivoCargadoEstado->alta($objArchivoCargadoBaseDatos,"dejarCompartir");
             $resp = true;
